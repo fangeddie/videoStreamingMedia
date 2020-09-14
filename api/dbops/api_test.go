@@ -56,3 +56,44 @@ func testReGetUser(t *testing.T) {
 		t.Error("ReGetUser failed.")
 	}
 }
+
+func TestVideoWorkFlow(t *testing.T) {
+	clearTables()
+	t.Run("PrepareUser", testAddUser)
+	t.Run("AddVideo", testAddVideoInfo)
+	t.Run("GetVideo", testGetVideoInfo)
+	t.Run("DelVideo", testDeleteVideoInfo)
+	t.Run("RegetVideo", testReGetVideoInfo)
+}
+
+var tempVid string
+
+func testAddVideoInfo(t *testing.T) {
+	vi, err := AddNewVideo(1, "爆裂鼓手")
+	if err != nil {
+		t.Errorf("Error of AddVideoInfo: %v", err)
+	}
+
+	tempVid = vi.Id
+}
+
+func testGetVideoInfo(t *testing.T) {
+	_, err := GetVideoInfo(tempVid)
+	if err != nil {
+		t.Errorf("Error of GetVideoInfo: %v", err)
+	}
+}
+
+func testDeleteVideoInfo(t *testing.T) {
+	err := DeleteVideoInfo(tempVid)
+	if err != nil {
+		t.Errorf("Error of DeleteVideoInfo: %v", err)
+	}
+}
+
+func testReGetVideoInfo(t *testing.T) {
+	vi, err := GetVideoInfo(tempVid)
+	if err != nil || vi != nil {
+		t.Errorf("Error of RegetVideoInfo: %v", err)
+	}
+}
