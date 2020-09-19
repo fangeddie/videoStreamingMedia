@@ -1,9 +1,9 @@
 package dbops
 
 import (
+	"api/defs"
+	"api/utils"
 	"database/sql"
-	"github.com/fang/video-streaming-media/defs"
-	"github.com/fang/video-streaming-media/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"time"
