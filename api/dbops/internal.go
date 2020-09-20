@@ -1,7 +1,6 @@
 package dbops
 
 import (
-	""
 	"api/defs"
 	"database/sql"
 	"log"
@@ -9,7 +8,7 @@ import (
 	"sync"
 )
 
-func InserSession(sid string, ttl int64, uname string) error {
+func InsertSession(sid string, ttl int64, uname string) error {
 	ttlStr := strconv.FormatInt(ttl, 10)
 	stmtIns, err := dbConn.Prepare("INSERT INTO sessions (session_id, TTL, login_name) VALUES (?, ?, ?);")
 	if err != nil {
@@ -35,7 +34,7 @@ func RetrieveSession(sid string) (*defs.SimpleSession, error) {
 	var ttl string
 	var uname string
 	err = stmtOut.QueryRow(sid).Scan(&ttl, &uname)
-	if err != nil && err != sql.ErrNoRows{
+	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
 
@@ -76,7 +75,7 @@ func RetrieveAllSessions() (*sync.Map, error) {
 		}
 
 		if ttl, err1 := strconv.ParseInt(ttlStr, 10, 64); err1 == nil {
-			ss := &defs.SimpleSession{Username: login_name, TTL:ttl}
+			ss := &defs.SimpleSession{Username: login_name, TTL: ttl}
 			m.Store(id, ss)
 			log.Printf("session id:%s, ttl:%d", id, ss.TTL)
 		}

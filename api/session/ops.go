@@ -43,7 +43,7 @@ func GenerateNewSessionId(un string) string {
 
 	ss := &defs.SimpleSession{Username: un, TTL: ttl}
 	sessionMap.Store(id, ss)
-	dbops.InserSession(id, ttl, un)
+	dbops.InsertSession(id, ttl, un)
 
 	return id
 }
