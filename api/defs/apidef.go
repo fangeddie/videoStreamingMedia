@@ -1,12 +1,12 @@
 package defs
 
-// requests
+// requests 创建用户需要用户名和密码
 type UserCredential struct {
 	Username string `json:"user_name"`
 	Pwd      string `json:"pwd"`
 }
 
-// response
+// response 返回值有是否成功,session
 type SignedUp struct {
 	Success   bool   `json:"success"`
 	SessionId string `json:"session_id"`

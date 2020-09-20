@@ -42,8 +42,8 @@ func GenerateNewSessionId(un string) string {
 	ttl := ct + 30*60*1000 // sever side session valid time: 30 min
 
 	ss := &defs.SimpleSession{Username: un, TTL: ttl}
-	sessionMap.Store(id, ss)
-	dbops.InsertSession(id, ttl, un)
+	sessionMap.Store(id, ss)             // 直接保存在内存中
+	_ = dbops.InsertSession(id, ttl, un) // 将 session 记录写入数据库
 
 	return id
 }

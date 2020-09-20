@@ -22,14 +22,14 @@ func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
-	router.POST("/user", CreateUser)
-	router.POST("/user/:user_name", Login)
+	router.POST("/user", CreateUser)       // 注册路由和处理函数映射
+	router.POST("/user/:user_name", Login) // : 是代表变量名称
 
 	return router
 }
 
 func main() {
-	r := RegisterHandlers()
+	r := RegisterHandlers() // 路由集
 	mh := NewMiddleWareHandler(r)
 
 	_ = http.ListenAndServe(":8000", mh)
